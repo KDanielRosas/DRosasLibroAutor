@@ -1,0 +1,55 @@
+﻿@model ML.Result
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Libros</h2>
+        </div>
+        <div class="col" style="text-align:end">
+            @Html.ActionLink("Agregar","Form","Libro",htmlAttributes: new { @class = "btn btn-success" })
+        </div>
+    </div>
+    <hr />
+
+    @if (Model.Objects != null)
+    {
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <td>Editar</td>
+                    <td class="visually-hidden">IdLibro</td>
+                    <td>Titulo</td>
+                    <td>Fecha Publicacion</td>
+                    <td>Paginas</td>
+                    <td>Autor</td>
+                    <td>Eliminar</td>
+                </tr>
+            </thead>
+            <tbody>                
+                @foreach (ML.Libro libro in Model.Objects)
+                {
+                    <tr>
+                        <td><a class="btn-warning" 
+                               href="@Url.Action("Form","Libro", new { idLibro = libro.IdLibro })">Edit</a></td>
+                        <td class="visually-hidden">@libro.IdLibro</td>
+                        <td>@libro.Nombre</td>
+                        <td>@libro.FechaPublicacion</td>
+                        <td>@libro.NumeroPaginas</td>
+                        <td>@libro.Autor.NombreCompleto </td>
+                        <td><a class="btn-danger"
+                               href="@Url.Action("Delete","Libro", new { idLibro = libro.IdLibro })">Eliminar</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert-danger" role="alert">No hay registros para mostrar</div>
+    }
+</div> <!-- container -->
+

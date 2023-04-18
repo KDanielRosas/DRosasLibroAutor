@@ -1,0 +1,56 @@
+﻿@model ML.Libro
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <h2>Registrar un nuevo libro</h2>
+    </div>
+    <hr />
+
+    @using (Html.BeginForm("Form", "Libro", FormMethod.Post, new { enctype = "multipart/form-data" }))
+     {
+        @Html.TextBoxFor(model => model.IdLibro, htmlAttributes: new { @class = "visually-hidden" })
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(model => model.Nombre)
+                @Html.TextBoxFor(model => model.Nombre, htmlAttributes: new { @class = "form-control" })
+            </div>
+
+            <div class="col">
+                @Html.LabelFor(model => model.FechaPublicacion) (MM/DD/AAAA)
+                @Html.TextBoxFor(model => model.FechaPublicacion, htmlAttributes: new { @class = "form-control" })
+            </div>
+
+            <div class="col">
+                @Html.LabelFor(model => model.NumeroPaginas)
+                @Html.TextBoxFor(model => model.NumeroPaginas, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                @Html.LabelFor(model => model.Autor)
+                @Html.DropDownListFor(model => model.Autor.IdAutor, 
+               new SelectList(Model.Autor.Autores, "IdAutor", "NombreCompleto"),
+                            "Selecciona un autor", new { @class = "form-control" })
+            </div>
+            
+        </div>
+
+        <br />
+        
+        <div class="row">
+            <div class="col">
+                <input type="submit" value="Guardar" class="btn btn-success"/>
+            </div>
+            <div class="col" style="text-align:end">
+                @Html.ActionLink("Regresar", "GetAll", "Libro", htmlAttributes: new { @class = "btn btn-danger"})
+            </div>
+        </div>
+
+     }
+</div> <!-- container -->
+

@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DRosasLibroAutorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="IdAutor" />
+          </Key>
+          <Property Name="IdAutor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="150" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="150" />
+          <Property Name="Nombre" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Libro">
+          <Key>
+            <PropertyRef Name="IdLibro" />
+          </Key>
+          <Property Name="IdLibro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="250" />
+          <Property Name="FechaPublicacion" Type="date" />
+          <Property Name="NumeroPaginas" Type="int" />
+          <Property Name="IdAutor" Type="int" />
+        </EntityType>
+        <Association Name="FK__Libro__IdAutor__1273C1CD">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="0..1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="IdAutor" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="IdAutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AutorGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="LibroAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="FechaPublicacion" Type="date" Mode="In" />
+          <Parameter Name="NumeroPaginas" Type="int" Mode="In" />
+          <Parameter Name="IdAutor" Type="int" Mode="In" />
+        </Function>
+        <Function Name="LibroDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdLibro" Type="int" Mode="In" />
+        </Function>
+        <Function Name="LibroGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="LibroGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdLibro" Type="int" Mode="In" />
+        </Function>
+        <Function Name="LibroUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdLibro" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="FechaPublicacion" Type="date" Mode="In" />
+          <Parameter Name="NumeroPaginas" Type="int" Mode="In" />
+          <Parameter Name="IdAutor" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DRosasLibroAutorModelStoreContainer">
+          <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Libro" EntityType="Self.Libro" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Libro__IdAutor__1273C1CD" Association="Self.FK__Libro__IdAutor__1273C1CD">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DRosasLibroAutorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="IdAutor" />
+          </Key>
+          <Property Name="IdAutor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Libroes" Relationship="Self.FK__Libro__IdAutor__1273C1CD" FromRole="Autor" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="Libro">
+          <Key>
+            <PropertyRef Name="IdLibro" />
+          </Key>
+          <Property Name="IdLibro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="FechaPublicacion" Type="DateTime" Precision="0" />
+          <Property Name="NumeroPaginas" Type="Int32" />
+          <Property Name="IdAutor" Type="Int32" />
+          <NavigationProperty Name="Autor" Relationship="Self.FK__Libro__IdAutor__1273C1CD" FromRole="Libro" ToRole="Autor" />
+        </EntityType>
+        <Association Name="FK__Libro__IdAutor__1273C1CD">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="0..1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="IdAutor" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="IdAutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DRosasLibroAutorEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Autors" EntityType="Self.Autor" />
+          <EntitySet Name="Libroes" EntityType="Self.Libro" />
+          <AssociationSet Name="FK__Libro__IdAutor__1273C1CD" Association="Self.FK__Libro__IdAutor__1273C1CD">
+            <End Role="Autor" EntitySet="Autors" />
+            <End Role="Libro" EntitySet="Libroes" />
+          </AssociationSet>
+          <FunctionImport Name="LibroAdd">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="FechaPublicacion" Mode="In" Type="DateTime" />
+            <Parameter Name="NumeroPaginas" Mode="In" Type="Int32" />
+            <Parameter Name="IdAutor" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="LibroDelete">
+          <Parameter Name="IdLibro" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="LibroUpdate">
+            <Parameter Name="IdLibro" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="FechaPublicacion" Mode="In" Type="DateTime" />
+            <Parameter Name="NumeroPaginas" Mode="In" Type="Int32" />
+            <Parameter Name="IdAutor" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="LibroGetAll" ReturnType="Collection(DRosasLibroAutorModel.LibroGetAll_Result)" />
+          <FunctionImport Name="LibroGetById" ReturnType="Collection(DRosasLibroAutorModel.LibroGetById_Result)">
+          <Parameter Name="IdLibro" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AutorGetAll" ReturnType="Collection(DRosasLibroAutorModel.AutorGetAll_Result)" />
+        </EntityContainer>
+        <ComplexType Name="LibroGetAll_Result">
+          <Property Type="Int32" Name="IdLibro" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="FechaPublicacion" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="NumeroPaginas" Nullable="true" />
+          <Property Type="Int32" Name="IdAutor" Nullable="true" />
+          <Property Type="String" Name="AutorNombre" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="AutorApellidoPaterno" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="AutorApellidoMaterno" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="LibroGetById_Result">
+          <Property Type="Int32" Name="IdLibro" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="FechaPublicacion" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="NumeroPaginas" Nullable="true" />
+          <Property Type="Int32" Name="IdAutor" Nullable="true" />
+          <Property Type="String" Name="AutorNombre" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="AutorApellidoPaterno" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="AutorApellidoMaterno" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="AutorGetAll_Result">
+          <Property Type="Int32" Name="IdAutor" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="150" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DRosasLibroAutorModelStoreContainer" CdmEntityContainer="DRosasLibroAutorEntities">
+          <EntitySetMapping Name="Autors">
+            <EntityTypeMapping TypeName="DRosasLibroAutorModel.Autor">
+              <MappingFragment StoreEntitySet="Autor">
+                <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Libroes">
+            <EntityTypeMapping TypeName="DRosasLibroAutorModel.Libro">
+              <MappingFragment StoreEntitySet="Libro">
+                <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaPublicacion" ColumnName="FechaPublicacion" />
+                <ScalarProperty Name="NumeroPaginas" ColumnName="NumeroPaginas" />
+                <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="LibroAdd" FunctionName="DRosasLibroAutorModel.Store.LibroAdd" />
+          <FunctionImportMapping FunctionImportName="LibroDelete" FunctionName="DRosasLibroAutorModel.Store.LibroDelete" />
+          <FunctionImportMapping FunctionImportName="LibroUpdate" FunctionName="DRosasLibroAutorModel.Store.LibroUpdate" />
+          <FunctionImportMapping FunctionImportName="LibroGetAll" FunctionName="DRosasLibroAutorModel.Store.LibroGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DRosasLibroAutorModel.LibroGetAll_Result">
+                <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaPublicacion" ColumnName="FechaPublicacion" />
+                <ScalarProperty Name="NumeroPaginas" ColumnName="NumeroPaginas" />
+                <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+                <ScalarProperty Name="AutorNombre" ColumnName="AutorNombre" />
+                <ScalarProperty Name="AutorApellidoPaterno" ColumnName="AutorApellidoPaterno" />
+                <ScalarProperty Name="AutorApellidoMaterno" ColumnName="AutorApellidoMaterno" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="LibroGetById" FunctionName="DRosasLibroAutorModel.Store.LibroGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DRosasLibroAutorModel.LibroGetById_Result">
+                <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="FechaPublicacion" ColumnName="FechaPublicacion" />
+                <ScalarProperty Name="NumeroPaginas" ColumnName="NumeroPaginas" />
+                <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+                <ScalarProperty Name="AutorNombre" ColumnName="AutorNombre" />
+                <ScalarProperty Name="AutorApellidoPaterno" ColumnName="AutorApellidoPaterno" />
+                <ScalarProperty Name="AutorApellidoMaterno" ColumnName="AutorApellidoMaterno" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AutorGetAll" FunctionName="DRosasLibroAutorModel.Store.AutorGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DRosasLibroAutorModel.AutorGetAll_Result">
+                <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
